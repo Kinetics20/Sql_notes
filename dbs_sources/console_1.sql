@@ -9,6 +9,11 @@ SELECT NOW();
 SELECT *
 FROM city;
 
+SELECT country_id, city
+FROM city
+WHERE country_id < 90 and city = 'Kabul'
+LIMIT 500;
+
 SELECT first_name, last_name
 FROM actor;
 

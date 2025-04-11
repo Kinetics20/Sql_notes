@@ -9,6 +9,7 @@ SELECT NOW();
 SELECT *
 FROM city;
 
+
 SELECT country_id, city
 FROM city
 WHERE country_id < 90 and city = 'Kabul'

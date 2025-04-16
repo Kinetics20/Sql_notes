@@ -1,0 +1,84 @@
+-- information function
+
+SELECT CONNECTION_ID();
+
+SELECT CURRENT_USER(), CURRENT_USER;
+
+SELECT DATABASE(), SCHEMA();
+
+SELECT USER();
+
+SELECT VERSION();
+
+-- string functions
+
+SELECT CHAR(65, 121);
+
+SELECT LOWER('DUPA'), LCASE('DUPA');
+SELECT UPPER('dupa'), UCASE('dupa');
+
+SELECT TRIM('    ALA   '), LENGTH('    ALA   ');
+SELECT TRIM('    ALA   '), LENGTH(TRIM('    ALA   '));
+SELECT RTRIM('    ALA   '), LENGTH(RTRIM('    ALA   '));
+SELECT LTRIM('    ALA   '), LENGTH(LTRIM('    ALA   '));
+
+SELECT 1 - 2;
+SELECT CAST(1 - 2 AS UNSIGNED);
+SELECT CAST(18446744073709551615 AS SIGNED);
+
+SELECT CONVERT('2024-05-08 21:24', DATE) AS Date;
+SELECT CONVERT('24-05-08 21:24', DATE) AS Date;
+SELECT CONVERT('20240508', DATE) AS Date;
+SELECT CONVERT('240508', DATE) AS Date;
+SELECT CONVERT('21:24', TIME) AS Date;
+SELECT CONVERT('210024', TIME) AS Date;
+SELECT CONVERT('2024-05-08 21:24', DATETIME) AS DateTime;
+
+SELECT CONVERT('11.1', DECIMAL(4, 2)) AS Dec1;
+
+-- Misc functions
+
+SELECT RAND();
+SELECT CEIL(RAND() * 48 + 1);
+SELECT FLOOR(RAND() * 48 + 1);
+
+SELECT NOW();
+SELECT SLEEP(3);
+SELECT NOW();
+
+SELECT UUID();
+
+-- control flow
+SET @Var = 42;
+SELECT CASE @Var
+           WHEN 666 THEN 'sql'
+           WHEN 42 THEN 'python'
+           ELSE 'last' END AS result;
+
+SELECT CASE
+           WHEN @Var = 666 THEN 'STH'
+           WHEN @Var = 42 THEN 'flowers'
+           ELSE 'last' END AS result;
+
+SET @v1 = 11;
+SET @v2 = 12;
+
+SELECT CASE
+           WHEN (@v1 = 11 AND @v2 = 12) THEN 'java'
+           WHEN (@v1 = 11 AND @v2 = 13) THEN 'python'
+           ELSE 'summer' END AS result;
+
+SELECT IF(1 > 2, 'sql', 'python');
+
+SELECT IF(YEAR(NOW()) = 2025, 'YES', 'NO');
+
+# jezeli pierwsza wartosc nie jest null zwraca ta wartosc , jezeli jest zwraca ta druga
+SELECT IFNULL(1, 0);
+SELECT IFNULL(NULL, 42);
+
+SELECT 1/0;
+
+SELECT IFNULL(1/0, 'YES');
+SELECT NULLIF(1, 1);
+SELECT NULLIF(5, 1);
+

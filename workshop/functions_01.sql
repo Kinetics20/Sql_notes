@@ -230,13 +230,14 @@ FROM customer;
 
 DELIMITER //
 
-CREATE FUNCTION median_apyment_for_customer(customer_id INT)
+CREATE FUNCTION median_pyment_for_customer(customer_id INT)
     RETURNS DECIMAL(4, 2)
     DETERMINISTIC
     READS SQL DATA
 BEGIN
     DECLARE count_payments SMALLINT UNSIGNED;
     DECLARE median_value DECIMAL(6, 2);
+    DECLARE offset_value SMALLINT UNSIGNED;
 
     SELECT COUNT(*)
     INTO count_payments
@@ -244,20 +245,59 @@ BEGIN
     WHERE pay.customer_id = customer_id
     LIMIT 1;
 
+    IF count_payments = 0 THEN
+        RETURN NULL;
+    END IF;
+
     IF MOD(count_payments, 2) = 1 THEN
+        SET offset_value = FLOOR(count_payments / 2);
+
         SELECT pay.amount
         INTO median_value
         FROM payment pay
         WHERE pay.customer_id = customer_id
-        LIMIT FLOOR(count_payments / 2), 1;
+        ORDER BY pay.amount
+        LIMIT 1 OFFSET offset_value;
     ELSE
-
-
-
-
+        SET offset_value = FLOOR(count_payments / 2) - 1;
+        SELECT AVG(mid_values.amount)
+        INTO median_value
+            FROM (SELECT pay.amount
+                    FROM payment pay
+                    WHERE pay.customer_id = customer_id
+                    ORDER BY pay.amount
+                    LIMIT 2 OFFSET offset_value) AS mid_values;
+    END IF;
 
     RETURN median_value;
 
 END //
 
 DELIMITER ;
+
+
+DROP FUNCTION median_pyment_for_customer;
+
+
+SELECT median_pyment_for_customer(2);
+
+SELECT COUNT(*)
+FROM payment
+WHERE   customer_id = 2
+LIMIT 500;
+
+SELECT amount
+FROM payment
+WHERE   customer_id = 2
+ORDER BY amount
+LIMIT 500;
+
+
+
+
+SELECT AVG(mid_values.amount)
+FROM (SELECT pay.amount
+      FROM payment pay
+      WHERE pay.customer_id = 1
+      ORDER BY pay.amount
+      LIMIT 2 OFFSET 16) AS mid_values

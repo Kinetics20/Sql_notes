@@ -2,6 +2,20 @@ SELECT *
 FROM language
 LIMIT 500;
 
+INSERT INTO language
+set name = 'Python';
+
+INSERT INTO language(name)
+VALUES ('C++'),('Python');
+
+DELETE
+FROM language
+WHERE name IN ('Java', 'C++');
+
+UPDATE language
+SET name = 'Java'
+WHERE name = 'Python';
+
 CREATE TABLE  audit_language (
     language_id TINYINT,
     name CHAR(20),
@@ -113,4 +127,27 @@ WHERE film_id =1;
 
 SELECT *
 FROM film
+LIMIT 500;
+
+# automatyczne ustawienie statusu klienta przy wypozyczeniu
+
+DELIMITER //
+
+CREATE TRIGGER activate_customer_on_rental
+    AFTER INSERT ON rental
+    FOR EACH ROW
+
+    BEGIN
+
+        UPDATE customer
+        SET active = 1
+        WHERE customer_id = NEW.customer_id
+          AND active = 0;
+
+    END //
+
+DELIMITER ;
+
+SELECT *
+FROM customer
 LIMIT 500;

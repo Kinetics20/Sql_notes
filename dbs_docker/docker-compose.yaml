@@ -1,6 +1,6 @@
 services:
     sakila:
-        image: mysql
+        image: mysql:8.0.42
         restart: always
         environment:
             MYSQL_DATABASE: 'sakila'

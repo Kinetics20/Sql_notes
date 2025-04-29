@@ -1,0 +1,13 @@
+[project]
+name = "sakila-python"
+version = "0.1.0"
+description = "Exercises with the Sakila database using MySQL, SQLAlchemy, SQLite, and Pydantic."
+authors = ["Piotr Lipinski <kinetics20@gmail.com>"]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "cryptography>=44.0.2",
+    "pydantic>=2.11.3",
+    "pymysql>=1.1.1",
+    "sqlalchemy>=2.0.40",
+]

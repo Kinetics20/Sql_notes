@@ -11,3 +11,4 @@ wheels/
 .idea
 */.venv/
 */*/.venv/
+sakila_python/.env

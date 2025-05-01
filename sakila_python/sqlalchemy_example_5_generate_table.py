@@ -26,7 +26,7 @@ metadata = MetaData()
 metadata.reflect(bind=engine, schema='sakila')
 
 if 'sakila.feedback' in metadata.tables:
-    print('Table "akila.actor" already exists.')
+    print('Table "sakila.actor" already exists.')
 else:
     feedback_table = Table(
         'feedback',
@@ -34,7 +34,7 @@ else:
         Column('feedback_id', Integer, primary_key=True),
         Column('film_id', UnsignedInt, ForeignKey('sakila.film.film_id'), nullable=False),
         Column('contact_id', UnsignedInt, ForeignKey('sakila.customer.customer_id'), nullable=False),
-        Column('rating', Integer, CheckConstraint('rating >= 0 AND rating <= 5'), nullable=False),
+        Column('rating', Integer, CheckConstraint('rating >= 1 AND rating <= 5'), nullable=False),
         Column('comment', String(500), nullable=True),
         UniqueConstraint('film_id', 'contact_id', name='unique_film_id_contact_id'),
         schema='sakila'

@@ -12,3 +12,4 @@ wheels/
 */.venv/
 */*/.venv/
 sakila_python/.env
+heroes_sql/heroes.png
